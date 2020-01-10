@@ -2,6 +2,8 @@
 
 Modules with "-vcenter" were created to deploy virtual machines in VCENTER.
 
+https://www.terraform.io/downloads.html Terraform Download
+
 Exec this steps:
 
 terraform init
