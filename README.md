@@ -2,7 +2,8 @@
 
 Modules with "-vcenter" were created to deploy virtual machines in VCENTER.
 
-Exec:
+Exec this steps:
+
 terraform init
 # Initialize a Terraform working directory
 
