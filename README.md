@@ -1,6 +1,8 @@
 # terraform
 
-Modules with "-vcenter" were created to deploy virtual machines in VCENTER.
+Modules with "-vcenter" (vcenter folder) were created to deploy virtual machines in VCENTER.
+
+AWS and Azure Modules coming soon... =)
 
 https://www.terraform.io/downloads.html Terraform Download
 
