@@ -4,6 +4,8 @@ Modules with "-vcenter" (vcenter folder) were created to deploy virtual machines
 
 AWS and Azure Modules coming soon... =)
 
+https://www.terraform.io/docs/configuration/syntax.html 
+
 https://www.terraform.io/downloads.html Terraform Download
 
 Exec this steps:
