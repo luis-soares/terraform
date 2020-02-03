@@ -3,6 +3,8 @@
 # REMOVE SYSPREP FROM TEMPLATE, IF YOU DONT REMOVE... THE ERROR WILL BE SHOWED:
 # Virtual machine customization failed on 
 
+# We are using module depends_on 'cause we need to wait a vlan creation.
+
 provider "vsphere" {
   user           = var.vsphere_user
   password       = var.vsphere_password
@@ -38,6 +40,7 @@ data "vsphere_distributed_virtual_switch" "dswitchlan" { # DISTRIBUTED VSWITCH
 #VM DEFINITION
 
   data "vsphere_network" "vlan" {
+  depends_on = [var.vm_depends_on]
   name          = var.vlanname #VLAN PORT GROUP
   datacenter_id = data.vsphere_datacenter.dc.id
 } 
@@ -58,7 +61,10 @@ data "vsphere_resource_pool" "resourcepool" {
 # ===============================================================================================================
 # CREATE VM 
 
+#TIRAR O SYSPREP
+
 resource "vsphere_virtual_machine" "vmname" {
+
   name             = var.name   #VMNAME
   resource_pool_id = data.vsphere_compute_cluster.vcentercluster.resource_pool_id
   datastore_id     = data.vsphere_datastore.defaultdatastore.id
@@ -100,3 +106,4 @@ resource "vsphere_virtual_machine" "vmname" {
     } # ENDS CUSTOMIZE
   } # END CLONE
 }
+  
