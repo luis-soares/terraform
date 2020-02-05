@@ -66,7 +66,9 @@ data "vsphere_resource_pool" "resourcepool" {
 resource "vsphere_virtual_machine" "vmname" {
 
   name             = var.name   #VMNAME
-  resource_pool_id = data.vsphere_compute_cluster.vcentercluster.resource_pool_id
+  # resource_pool_id = data.vsphere_compute_cluster.vcentercluster.resource_pool_id
+  resource_pool_id = data.vsphere_resource_pool.resourcepool.id
+  
   datastore_id     = data.vsphere_datastore.defaultdatastore.id
 
   num_cpus = var.vcpu           #vCPU
