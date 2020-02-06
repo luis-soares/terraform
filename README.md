@@ -1,6 +1,8 @@
 # terraform
 
-Modules with "-vcenter" (vcenter folder) were created to deploy virtual machines in VCENTER.
+Modules on folders by providers: 
+
+VCENTER is ok.
 
 AWS and Azure Modules coming soon... =)
 
