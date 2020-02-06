@@ -84,7 +84,7 @@ resource "vsphere_virtual_machine" "vmname" {
   }
 
   disk {
-    label            = "Disk0"  
+    label            = "Disk0"   
     size             = var.disksize
     eagerly_scrub    = data.vsphere_virtual_machine.template.disks.0.eagerly_scrub
     thin_provisioned = data.vsphere_virtual_machine.template.disks.0.thin_provisioned
@@ -103,7 +103,8 @@ resource "vsphere_virtual_machine" "vmname" {
         ipv4_netmask = var.cidr                               # MASK
      #   domain_admin_password = var.localpasswd               # PASSWD
       } # END NETWORK INTERFACE
-      ipv4_gateway = var.gateway                              #IP GATEWAY
+      ipv4_gateway = var.gateway 
+      dns_server_list = var.dnslist                             #IP GATEWAY
        
     } # ENDS CUSTOMIZE
   } # END CLONE
