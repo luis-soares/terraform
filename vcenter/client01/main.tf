@@ -1,40 +1,63 @@
-provider "vsphere" {
-  allow_unverified_ssl = true
+variable "vsphere_server" {
+  default = "172.16.0.50"
 }
 
-# ========================================
+variable "datacenter" {
+  default = "DC-LUREN-BR" # VSPHERE DATACENTER
+}
 
-module "winvm" {
-  source = "../modules/vmware/winvm"
+variable "vmcluster" {
+  default = "Cloud-LUREN"      # VSPHERE CLUSTER
+}
 
-  #VCENTER DATA
-  vsphere_user = "terraformuser@vsphere.local"
-  vsphere_password = "terraformpassword"
-  vsphere_server = "10.10.0.50"
-  
-  #ENV DATA
-  datacenter = "DC-TEST" # VSPHERE DATACENTER
-  vmcluster = "Cloud-Cluster"      # VSPHERE CLUSTER
-  resourcepoolname = "Cloud-Cluster/Resources/CLIENTES/GERENCIADOS/TESTE01"     # RESOURCE POOL
-  datastore = "DS01"                # DATASTORE
- 
-  #NETWORK 
-  dswitchid = "DSwitch-LAN"          # Distributed Switch
-  vlanname = "VLAN1001"              # Portgroupvlan
-  vlanid = "1001"                    # VLAN ID
+variable "datastore" {
+  default = "Pure-V10" 
+}
 
-  #VM HW
-  name = "SRV01"                # HOSTNAME/VMNAME
-  vcpu = "4"                        # vCPU
-  memory = "8192"                   # MB
-  disksize = "400"                   # GB
-  firmware = "efi"                  # EFI / BIOS
+variable "network" {
+  default =  "VLAN1000-LUREN"                 # Portgroupvlan
+}
 
-  #VM CONFIG
-  vm_template = "Template-TP-Win2019-Terraform"  # TEMPLATE NAME
-  ipaddr = "172.16.0.22"          # IP ADDRESS
-  cidr = "26"                       # CIDR MASK
-  gateway = "172.16.0.1"         # GATEWAY
-  dns_suffixes = "WorkGroup" # DOMAIN NAME
-  dnslist = ["8.8.8.8", "1.1.1.1"]
-  }
+
+
+variable "resourcepoolname" {
+  default = "Cloud-Matrix/Resources/LUREN"
+}
+
+variable "dswitchid" {
+  default = "DSwitch-LAN"
+}
+
+variable "vlanid" {
+  default = "1000"
+}
+
+
+
+#ENV DATA
+
+
+module "virtual_machines" {
+  source               = "../modules/vmware/createvm/"
+#  admin_password       = "TestP@ssw0rdLuis"
+  num_cpus                 = "4"        #vCPU
+  memory               = "4096"         #MEMORY
+  disk_size             = "80"
+#  guest_id = data.vsphere_virtual_machine.template.guest_id
+  ipv4_address_start   = "200"
+  ipv4_gateway         = "192.168.254.1"
+  ipv4_network_address = "192.168.254.0/24"
+#  linked_clone         = "${var.linked_clone}"
+  template_name        = "TP-Win2019-Template-Terraform"
+  template_os_family   = "windows"
+  vm_count             = "5"
+  vm_name_prefix       = "srvtesteluis0"
+  workgroup            = "testeworkgroup"
+  firmware             = "efi"        #EFI / BIOS
+  datastore            = var.datastore
+#  vlanname             = var.vlanname
+  network              = var.network
+  datacenter           = var.datacenter
+  resourcepoolname        = var.resourcepoolname
+}
+
