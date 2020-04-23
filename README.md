@@ -22,5 +22,5 @@ terraform plan -out=plan
 # Builds or changes infrastructure
 terraform apply "plan"
 
-# If you have problem to customize your Windows Servers, remember that you shouldn't run sysprep on your Operation System, if the problem of customizing still occurs, check the sysprep log, you may need to resolve sysprep problems. Check this article to resolve the sysprep error:
+# If you have problem to customize your Windows Servers, remember that you shouldn't run sysprep on your Operation System, Terraform will do it for you. If the problem of customizing still occurs, check the sysprep log, you may need to resolve sysprep problems. Check this article to resolve the sysprep error:
 https://www.wintips.org/fix-sysprep-fatal-error-dwret-31-machine-invalid-state-couldnt-update-recorded-state/
